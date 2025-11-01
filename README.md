@@ -1,4 +1,4 @@
-# Nadim's sad quest to fix his laptop speakers
+# Nadim's ~~sad~~ epic, noble, valiant quest to fix his laptop speakers
 
 ![](george.jpg)
 
