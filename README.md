@@ -64,6 +64,10 @@ Arranged from most to least useful/likely to lead to progress.
 - [This](https://github.com/daveysyr/Ubuntu_Lenovo_Legion_audio_fix/blob/main/legion_audio_fix_detailed.txt)
 - `options snd-hda-intel patch=legion-alc287.patch`
 
+## Things that likely will lead to a permanent solution
+[This seems to have worked for 2020 models.](https://github.com/thiagotei/linux-realtek-alc287/tree/main/lenovo-legion) The idea is to use QEMU in order to sniff the HDA verbs from the Windows drivers, and then replicate those on Linux. [A fantastic tutorial on how to do exactly this is available here](https://github.com/ryanprescott/realtek-verb-tools/wiki/How-to-sniff-verbs-from-a-Windows-sound-driver). [And here are some debugging tools for testing HDA verbs on Linux](https://github.com/ryanprescott/realtek-verb-tools?tab=readme-ov-file).
+
+
 ## Things that absolutely do not work
 
 - [Completely useless](https://github.com/aenawi/lenovo-legion-linux-audio)
@@ -77,8 +81,7 @@ I don't know,
 
 - Learn how kernel sound drivers work?
 - Adapt an existing quirk (e.g. `alc287-yoga9-bass-spk-pin`) to make it work?
-- Reverse engineer the Windows driver, record the HDA verbs being sent across I2C, and port that to Linux? [This seems to have worked for 2020 models, and this repo has instructions for how to test HDA verbs, and its author can probably be pinged to add instructions on how to record them using qemu (see bottom of their README).](https://github.com/thiagotei/linux-realtek-alc287/tree/main/lenovo-legion)
-- Nag?
+- Reverse engineer the Windows driver, record the HDA verbs being sent across I2C, and port that to Linux? - Nag?
 
 ## Offer: I will fund a kernel developer to fix this
 
