@@ -83,9 +83,3 @@ Additionally, [here are some debugging tools for testing HDA verbs on Linux](htt
 - [Solutions that involve Yoga-specific kernel quirks](https://discussion.fedoraproject.org/t/lenovo-yoga-pro-7-14asp10-audio-issue-no-all-speakers-firing/163480/2)
 - `options snd-hda-intel model=alc287-yoga9-bass-spk-pin`
 - Switching to SOF drivers
-
-## Are you also having this problem???
-
-If so, please yell loudly at my general direction! Try to raise it up on kernel audio mailing lists! Respond to this [kernel.org Bugzilla discussion I'm trying to be active in](https://bugzilla.kernel.org/show_bug.cgi?id=218329)!
-
-**You can also participate in the bug bounty pledge by sending a pull request to this `README.md` file adding your amount above.**
