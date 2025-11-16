@@ -43,6 +43,7 @@ Arranged from most to least useful/likely to lead to progress.
 - [Directly relevant discussion on Lenovo forums](https://forums.lenovo.com/t5/Ubuntu/Legion-Pro-7-16IAX10H-Ubuntu-ALC3306-sound/m-p/5376602)
 - [Directly relevant discussion on Garuda Linux forums](https://forum.garudalinux.org/t/audio-issues-on-lenovo-legion-pro-7-16iax10h/46291)
 - [Directly relevant discussion on CachyOS forums](https://discuss.cachyos.org/t/speakers-are-tinny-and-not-playing-mids-or-lows-on-lenovo-legion-pro-7i-10th-gen-2025/15864/7)
+- [Directly relevant discussion on Linux Mint forums](https://forums.linuxmint.com/viewtopic.php?t=457586)
 - [Reddit](https://www.reddit.com/r/LenovoLegion/comments/1lg63ms/linux_support_on_lenovo_legion_pro_7i_gen_10/) (just some casual comments)
 
 ## Technical documents
