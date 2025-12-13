@@ -1,10 +1,15 @@
 # Guide: Linux Audio on the Lenovo Legion Pro 7i Gen 10 (16IAX10H)
 
-This guide explains how to get audio working correctly on the Lenovo Legion Pro 7i Gen 10 (**16IAX10H**). In addition, this guide is also reported to fix audio on the Lenovo Legio 5i (**[16IRX9](https://github.com/nadimkobeissi/16iax10h-linux-sound-saga/issues/20)**), and may in fact fix audio on many similarly specced Lenovo Legion laptops that use the same audio architecture.
+This guide explains how to get audio working correctly on the Lenovo Legion Pro 7i Gen 10 (**16IAX10H**). Since this solution is still very new, it will take some time for all components to be properly integrated into the Linux kernel. Until that happens, you can follow the steps below, which have been rigorously tested and are confirmed to work. This guide will be updated for future kernel versions as they are released, until the fix is fully integrated into the kernel.
 
-Since this solution is still very new, it will take some time for all components to be properly integrated into the Linux kernel. Until that happens, you can follow the steps below, which have been rigorously tested and are confirmed to work.
+## Confirmed to work on multiple devices!
 
-This guide will be updated for future kernel versions as they are released, until the fix is fully integrated into the kernel.
+To our surprise, this fix actually fixed audio on more laptops than just the 16IAX10H! List of confirmed compatible devices:
+
+- Lenovo Legion Pro 7i Gen 10 (**16IAX10H**)
+- Lenovo Legion 5i (**[16IRX9](https://github.com/nadimkobeissi/16iax10h-linux-sound-saga/issues/20)**)
+
+If your laptop has a similar sound architecture and you're running into similar problems, please try this fix and let us know if it works for you too!
 
 ## Step 1: Install the AW88399 Firmware
 
