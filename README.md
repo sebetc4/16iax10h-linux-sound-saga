@@ -196,6 +196,9 @@ Replace `your-root-partition-uuid` with your actual root partition UUID (find it
 
 **Note:** You must include `snd_intel_dspcfg.dsp_driver=3` in your kernel boot parameters.
 
+> **Looking for a complete Fedora guide with Secure Boot support?**
+> See the comprehensive [Fedora Kernel Build Guide](patch-kernel-fedora/FEDORA-BUILD-GUIDE.md) which covers building the Fedora kernel with native RPM packages, Secure Boot signing, and akmods integration for NVIDIA drivers. An [automation script](patch-kernel-fedora/automation/) is also available.
+
 </details>
 
 ## Step 8: Reboot into the Patched Kernel
