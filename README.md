@@ -6,6 +6,10 @@ This guide explains how to get audio working correctly on the Lenovo Legion Pro 
 
 If you have time, please work on upstreaming these changes to the Linux kernel and keep us posted in your progress. [This comment on the Kernel Bugzilla](https://bugzilla.kernel.org/show_bug.cgi?id=218329#c24) has some pointers.
 
+## Filing issues
+
+Please don't file issues to complain about something missing. Filing issues about something being broken is fine, but if it's a request to add something, either add it yourself or just... politely don't speak.
+
 ## Confirmed to work on multiple devices!
 
 To our surprise, this fix actually fixed audio on more laptops than just the 16IAX10H! List of confirmed compatible devices:
