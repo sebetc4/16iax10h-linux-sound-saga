@@ -453,11 +453,12 @@ diff -u -r -N linux-6.19/sound/hda/codecs/side-codecs/aw88399_hda.c patched/soun
 +	/*
 +	 * Lenovo Legion Pro 7 16IAX10H (product 83F5, SSIDs 17aa:3906/3907/3d6c)
 +	 * Lenovo Legion Pro 7 16AFR10H (product 83RU, SSIDs 17aa:3938)
++	 * Lenovo Legion Y9000P IAX10H  (product 83F4, SSIDs 17aa:3907)
 +	 * has I2C devices wired backwards: 0x34 is physically right, 0x35 is left.
 +	 * Swap channels to correct L/R assignment. This is a hardware wiring issue
 +	 * specific to this model, not a driver bug.
 +	 */
-+	if (dmi_match(DMI_PRODUCT_NAME, "83F5") || dmi_match(DMI_PRODUCT_NAME, "83RU")) {
++	if (dmi_match(DMI_PRODUCT_NAME, "83F5") || dmi_match(DMI_PRODUCT_NAME, "83RU") || dmi_match(DMI_PRODUCT_NAME, "83F4")) {
 +		aw88399->channel = 1 - aw88399->channel;
 +		dev_info(dev, "Legion quirk: swapped to channel %d (index %d, addr 0x%02x)\n",
 +			 aw88399->channel, aw88399->index, i2c->addr);

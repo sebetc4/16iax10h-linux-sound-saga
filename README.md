@@ -2,7 +2,7 @@
 
 This guide explains how to get audio working correctly on the Lenovo Legion Pro 7i Gen 10 (**16IAX10H**). Since this solution is still very new, it will take some time for all components to be properly integrated into the Linux kernel. Until that happens, you can follow the steps below, which have been rigorously tested and are confirmed to work. This guide will be updated for future kernel versions as they are released, until the fix is fully integrated into the kernel.
 
-## We need someone to take care of upstreaming this
+## WE NEED SOMEONE TO UPSTREAM THIS INTO THE KERNEL, DRIVERS AND OTHER RELEVANT PACKAGES! PLEASE VOLUNTEER TO DO THIS!
 
 If you have time, please work on upstreaming these changes to the Linux kernel and keep us posted in your progress. [This comment on the Kernel Bugzilla](https://bugzilla.kernel.org/show_bug.cgi?id=218329#c24) has some pointers.
 
@@ -17,6 +17,7 @@ To our surprise, this fix actually fixed audio on more laptops than just the 16I
 - Lenovo Legion Pro 7i Gen 10 (**16IAX10H**)
 - Lenovo Legion Pro 7 Gen 10 (**[16AFR10H](https://github.com/nadimkobeissi/16iax10h-linux-sound-saga/issues/30)**)
 - Lenovo Legion 5i Gen 9 (**[16IRX9](https://github.com/nadimkobeissi/16iax10h-linux-sound-saga/issues/20)**)
+- Lenovo Legion Y9000P (**[IAX10H](https://github.com/nadimkobeissi/16iax10h-linux-sound-saga/issues/42)**)
 
 If your laptop has a similar sound architecture and you're running into similar problems, please try this fix and let us know if it works for you too!
 
@@ -169,7 +170,7 @@ options root=PARTUUID=your-root-partition-uuid rw snd_intel_dspcfg.dsp_driver=3
 
 Replace `your-root-partition-uuid` with your actual root partition UUID (find it by running `blkid`).
 
-**Note:** You must include `snd_intel_dspcfg.dsp_driver=3` in your kernel boot parameters.
+**Note:** You must include `snd_intel_dspcfg.dsp_driver=3` in your kernel boot parameters. For some devices however, such as the Legion Y9000P, `snd_intel_dspcfg.dsp_driver=1` works instead.
 
 </details>
 
@@ -199,7 +200,7 @@ options root=UUID=your-root-partition-uuid rw snd_intel_dspcfg.dsp_driver=3
 
 Replace `your-root-partition-uuid` with your actual root partition UUID (find it by running `blkid`).
 
-**Note:** You must include `snd_intel_dspcfg.dsp_driver=3` in your kernel boot parameters.
+**Note:** You must include `snd_intel_dspcfg.dsp_driver=3` in your kernel boot parameters. For some devices however, such as the Legion Y9000P, `snd_intel_dspcfg.dsp_driver=1` works instead.
 
 > **Looking for a complete Fedora guide with Secure Boot support?**
 > See the comprehensive [Fedora Kernel Build Guide](patch-kernel-fedora/FEDORA-BUILD-GUIDE.md) which covers building the Fedora kernel with native RPM packages, Secure Boot signing, and akmods integration for NVIDIA drivers. An [automation script](patch-kernel-fedora/automation/) is also available.
