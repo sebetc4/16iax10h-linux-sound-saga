@@ -69,34 +69,49 @@ get_patch_file() {
         return 1
     fi
 
-    # Extract major.minor version (e.g., 6.18 from 6.18.6)
+    # Extract major.minor version (e.g., 6.19 from 6.19.7)
     local major_minor
     major_minor=$(echo "$kernel_version" | grep -oP '^\d+\.\d+')
 
     local patch_file=""
 
-    # Try exact match first (e.g., 16iax10h-audio-linux-6.18.patch)
-    if [[ -f "${patches_dir}/16iax10h-audio-linux-${major_minor}.patch" ]]; then
-        patch_file="${patches_dir}/16iax10h-audio-linux-${major_minor}.patch"
-    # Try with full version
-    elif [[ -f "${patches_dir}/16iax10h-audio-linux-${kernel_version}.patch" ]]; then
+    local is_fallback=false
+
+    # Try exact version first (e.g., 16iax10h-audio-linux-6.19.7.patch)
+    if [[ -f "${patches_dir}/16iax10h-audio-linux-${kernel_version}.patch" ]]; then
         patch_file="${patches_dir}/16iax10h-audio-linux-${kernel_version}.patch"
-    # Fallback: find any patch for this major version
+    # Try major.minor match (e.g., 16iax10h-audio-linux-6.18.patch)
+    elif [[ -f "${patches_dir}/16iax10h-audio-linux-${major_minor}.patch" ]]; then
+        patch_file="${patches_dir}/16iax10h-audio-linux-${major_minor}.patch"
+    # Fallback: find latest patch for this major.minor version
     else
-        local major
-        major=$(echo "$kernel_version" | cut -d. -f1)
-        patch_file=$(find "$patches_dir" -name "16iax10h-audio-linux-${major}.*.patch" 2>/dev/null \
+        patch_file=$(find "$patches_dir" -name "16iax10h-audio-linux-${major_minor}*.patch" 2>/dev/null \
             | sort -V \
             | tail -1)
+        if [[ -n "$patch_file" && -f "$patch_file" ]]; then
+            is_fallback=true
+        fi
     fi
 
     if [[ -z "$patch_file" || ! -f "$patch_file" ]]; then
-        log_error "No suitable patch found for kernel $kernel_version"
+        log_error "No patch found for kernel $kernel_version"
         log_info "Available patches:"
         find "$patches_dir" -name "*.patch" -type f 2>/dev/null | while read -r f; do
             log_info "  - $(basename "$f")"
         done
         return 1
+    fi
+
+    if [[ "$is_fallback" == true ]]; then
+        log_warn "No patch validated for kernel $kernel_version"
+        log_warn "Closest match: $(basename "$patch_file")"
+        log_warn "This patch may fail if upstream context has changed"
+        echo ""
+        read -r -p "[?] Use $(basename "$patch_file") for kernel $kernel_version? [y/N] " answer
+        if [[ ! "$answer" =~ ^[Yy]$ ]]; then
+            log_info "Aborted by user"
+            return 1
+        fi
     fi
 
     log_debug "Found patch: $patch_file"

@@ -94,6 +94,7 @@ cleanup_build_directories() {
 
     local dirs_to_clean=(
         "${WORK_DIR}"
+        "${HOME}/rpmbuild"
     )
 
     log_warn "This will permanently delete build directories!"

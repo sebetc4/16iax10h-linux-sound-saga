@@ -453,10 +453,10 @@ log_success "Selected version: kernel-$SELECTED_VERSION"
 # Get the right patch for this version
 log_step "3.2" "Selecting patch for kernel $SELECTED_VERSION"
 
-# Extract major.minor for patch selection
-KERNEL_MAJOR_MINOR=$(echo "$SELECTED_VERSION" | grep -oP '^\d+\.\d+')
+# Extract major.minor.patch version for patch selection (e.g., 6.19.7 from 6.19.7-200.fc43)
+KERNEL_VERSION_MMP=$(echo "$SELECTED_VERSION" | grep -oP '^\d+\.\d+\.\d+')
 
-AUDIO_PATCH=$(get_patch_file "$KERNEL_MAJOR_MINOR") || error_exit "No patch available for kernel $KERNEL_MAJOR_MINOR"
+AUDIO_PATCH=$(get_patch_file "$KERNEL_VERSION_MMP") || error_exit "No patch available for kernel $KERNEL_VERSION_MMP"
 log_success "Using patch: $(basename "$AUDIO_PATCH")"
 
 # Find commit for selected version
