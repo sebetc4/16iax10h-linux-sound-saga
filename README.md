@@ -35,8 +35,7 @@ If you prefer to obtain your own copy of this firmware blob, [follow these instr
 
 This patch is tested under the following kernel versions. Click the one you desire to download its corresponding source code:
 
- - [Linux 6.19.8](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.19.8.tar.xz) (also seems to work on **RC versions of 7.0**)
- - [Linux 6.18](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.18.tar.xz) (also verified to work on **6.18.1**, **6.18.2**, **6.18.3**, **6.18.4**, **6.18.5**).
+ - [Linux 6.19.11](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.19.11.tar.xz) (also seems to work on **RC versions of 7.0**)
 
 ## Step 3: Patch the Linux Kernel Sources
 
@@ -98,20 +97,20 @@ sudo make -j24 modules_install
 sudo cp -f arch/x86/boot/bzImage /boot/vmlinuz-linux-16iax10h-audio
 ```
 
-## Step 6: Install NVidia DKMS Drivers
+## Step 6: Install Nvidia DKMS Drivers
 
-To ensure proper graphics integration, you'll need to install the NVidia DKMS drivers for your custom kernel.
+To ensure proper graphics integration, you'll need to install the Nvidia DKMS drivers for your custom kernel.
 
 <details>
 <summary><h3>Arch Linux (Tested)</h3></summary>
 
-Install the NVidia DKMS package and headers:
+Install the Nvidia DKMS package and headers:
 
 ```bash
 sudo pacman -S nvidia-open-dkms
 ```
 
-The DKMS system will automatically build the NVidia kernel modules for your custom kernel. After installation, reboot to load the new drivers.
+The DKMS system will automatically build the Nvidia kernel modules for your custom kernel. After installation, reboot to load the new drivers.
 
 In case you later need to recompile and reinstall the driver, use the `dkms` utility:
 
@@ -120,7 +119,7 @@ sudo dkms build nvidia/580.105.08 --force
 sudo dkms install nvidia/580.105.08 --force
 ```
 
-You may need to replace `580.105.08` with the actual NVidia driver version.
+You may need to replace `580.105.08` with the actual Nvidia driver version.
 
 </details>
 
@@ -208,44 +207,7 @@ Replace `your-root-partition-uuid` with your actual root partition UUID (find it
 
 Reboot into the patched kernel. After rebooting, run `uname -a` to verify that you're running the correct kernel.
 
-## Step 9: Install the Patched ALSA UCM2 Configuration
-
-This step is necessary for proper volume control.
-
-Copy the files from this repository's `fix/ucm2/` folder to `/usr/share/alsa/ucm2/HDA/`, overwriting the existing files:
-
-```bash
-sudo cp -f fix/ucm2/HiFi-analog.conf /usr/share/alsa/ucm2/HDA/HiFi-analog.conf
-sudo cp -f fix/ucm2/HiFi-mic.conf /usr/share/alsa/ucm2/HDA/HiFi-mic.conf
-```
-
-Then, identify your sound card ID by running:
-
-```bash
-alsaucm listcards
-```
-
-You should get something like this:
-
-```bash
-0: hw:0
-  LENOVO-83F5-LegionPro716IAX10H-LNVNB161216
-```
-
-Then, run the commands below, If you got `hw:1` above, change `hw:0` to `hw:1` and `-c 0` to `-c 1`:
-
-```bash
-alsaucm -c hw:0 reset
-alsaucm -c hw:0 reload
-systemctl --user restart pipewire pipewire-pulse wireplumber
-amixer sset -c 0 Master 100%
-amixer sset -c 0 Headphone 100%
-amixer sset -c 0 Speaker 100%
-```
-
-**Note:** The last three commands are for speaker calibration, not for setting your volume to maximum. They must be run for the speakers to function properly, but they do not control your actual volume level.
-
-## Step 10: Enjoy Working Audio!
+## Step 9: Enjoy Working Audio!
 
 That's it! Your audio should now work correctly and permanently. This fix will persist across reboots with no additional steps required.
 
@@ -261,12 +223,14 @@ THE PROGRAM IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED O
 
 Fixing this issue required weeks of intensive work from multiple people.
 
-Approximately 95% of the engineering work was done by [Lyapsus](https://github.com/Lyapsus). Lyapsus improved an incomplete kernel driver, wrote new kernel codecs and side-codecs, and contributed much more. I want to emphasize his incredible kindness and dedication to solving this issue. He is the primary force behind this fix, and without him, it would never have been possible.
+Virtually all engineering groundwork was done by [Lyapsus](https://github.com/Lyapsus). Lyapsus improved an incomplete kernel driver, wrote new kernel codecs and side-codecs, and contributed much more. I want to emphasize his incredible kindness and dedication to solving this issue. He is the primary force behind this fix, and without him, it would never have been possible.
 
 I ([Nadim Kobeissi](https://nadim.computer)) conducted the initial investigation that identified the missing components needed for audio to work on the 16IAX10H on Linux. Building on what I learned from Lyapsus's work, I helped debug and clean up his kernel code, tested it, and made minor improvements. I also contributed the solution to the volume control issue documented in Step 8, and wrote this guide.
 
 Gergo K. showed me how to extract the AW88399 firmware from the Windows driver package and install it on Linux, as documented in Step 1.
 
 [Richard Garber](https://github.com/rgarber11) graciously contributed [the fix](https://github.com/nadimkobeissi/16iax10h-linux-sound-saga/issues/19#issuecomment-3594367397) for making the internal microphone work.
+
+[Marco Giunta's fork](https://github.com/marco-giunta/legion-pro7-gen10-audio) reworked all of the above engineering effort into a much more mature past, and was reintegrated into this repository as of Linux 6.19.10.
 
 Sincere thanks to everyone who [pledged](PLEDGE.md) a reward for solving this problem. The reward goes to Lyapsus.
